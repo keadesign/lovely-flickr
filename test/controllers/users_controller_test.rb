@@ -32,6 +32,8 @@ class UsersControllerTest < ActionController::TestCase
   def valid_user_attributes
     user = users(:nick)
     attributes = user.attributes.except("id")
+    attributes [:password] = "foo"
+    attributes [:password_confirmation] = "foo"
     user.destroy!
 
     raise unless User.new(attributes).valid?

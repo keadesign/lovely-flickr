@@ -1,0 +1,44 @@
+<h1><%= @photo.title %></h1>
+
+<%= image_tag @photo.upload_url %>
+
+<!-- <%#= form_for @photo, buy_photo_path do |f| %> <form action="/photo/buy"> -->
+
+
+<%= form_tag buy_photo_path do %>
+<h2>Purchase a Print</h2>
+<div>Size: 10x10</div>
+<!-- Rails provides a helper (number_to_currency) to output currency correctly (instead of in cents ) -->
+<div>Price: <%= number_to_currency(Photo::PRICE / 100) %></div>
+<div>Email: <%= text_field_tag :email %></div>
+
+<!-- You need this script for/from Stripe, see Stripe set up docs:
+        Also, 'data-amount' is only for display purposes, shown on payment button -->
+<script src="https://checkout.stripe.com/v2/checkout.js" class="stripe-button"
+          data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+          data-description="Print for <%= @photo.title %>"
+          data-amount="<%= Photo::PRICE %>"></script>
+
+<% end %>
+<p> Photo comments: <% @photo.comments.each do |f| %>
+    <%= f.body %><br />
+<% end %>
+
+</p>
+<p> Photo description: <%= @photo.description %></p>
+<p> Uploaded by <b><%= @photo.user.username %></b> <%= time_ago_in_words (@photo.created_at) %> ago.</p>
+
+<p>
+<% if @current_user %>
+  <h2>Add a Comment to this Photo</h2>
+      <%= form_for [@photo, Comment.new] do |f| %>
+
+
+      <%= f.text_area :body %>
+      <%= f.submit "Post Comment" %>
+
+    <% end %>
+<% end %>
+
+<!-- <#%= link_to "All Photos", photo_path %> -->
+

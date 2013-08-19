@@ -1,5 +1,8 @@
-<h1>Sign up to Flickr</h1>
-<%= form_for @user do |f| %>
+<%#= render partial: 'error', locals: { objekt: 'hi'} %>
+
+
+<h1>Sign up to Lovely Flickr</h1>
+<%= form_for @user, remote: true do |f| %>
   <%= f.error_messages %>
 
   <div>Username: <%= f.text_field :username %></div>

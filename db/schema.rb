@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130809002644) do
+ActiveRecord::Schema.define(version: 20130815171728) do
 
   create_table "comments", force: true do |t|
     t.text     "body"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 20130809002644) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "upload"
   end
 
   add_index "photos", ["user_id"], name: "index_photos_on_user_id"
@@ -41,6 +42,7 @@ ActiveRecord::Schema.define(version: 20130809002644) do
     t.string   "password_digest"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "stripe_customer_id"
   end
 
   create_table "videos", force: true do |t|
@@ -49,6 +51,7 @@ ActiveRecord::Schema.define(version: 20130809002644) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "upload"
   end
 
   add_index "videos", ["user_id"], name: "index_videos_on_user_id"

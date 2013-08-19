@@ -1,17 +1,41 @@
 Flickr::Application.routes.draw do
-  resources :comments
+  # resources :comments
 
   resources :users
 
   resources :videos
 
-  resources :photos
+  # resources :photos do
+  #   resources :comments
+  # end
+
+  resources :photos do
+   # concerns: :commentable do
+    member do
+      post :buy
+    end
+    collection do
+      post "search", to: "photos#search"
+    end
+  end
+
+  resources :photos, except: [:edit, :update] do
+    resources :comments
+  end
+
+  resources :sessions
+  # only [:new, :create, :destroy]
+
+  get 'logout', to: "sessions#destroy"
+
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+  # This is your "splash" page
+  root 'welcome#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

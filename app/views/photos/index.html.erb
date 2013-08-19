@@ -1,1 +1,20 @@
-hello
+<h1>My Photos</h1>
+
+<!-- @photos = Photo.public -->
+
+<% @photos.each do |photo| %>
+  <div class="photo">
+    <%= image_tag photo.upload_url %>
+  </div>
+
+
+<!--   <#%= form_tag('/photos') do -%>
+  <div>Search: <#%= f.text_field :search %></div>
+  <div><#%= submit_tag 'Save' %></div>
+  <%# end -%> -->
+
+<% end %>
+
+
+
+

@@ -1,0 +1,36 @@
+<% if @user.valid? %>
+
+  alert("User was saved");
+  alert(<%=escape_javascript link_to photos_path %>);
+
+// Let the user know everything is ok here
+
+// insert a partial here (re: green check mark next to form inputs)
+
+<% else %>
+
+  alert("Something's busted!");
+  $('.message').removeClass('alert-success');
+  $('.message').addClass('alert-error').fadeIn('slow').html("<%=j render(partial: 'error', locals: { message: @user.errors.full_messages.to_sentence }) %>");
+
+<% end %>
+
+<%# Comments go here %>
+<% if false %>
+  //... change this to something niftier
+  // alert("<%= escape_javascript link_to photos_path %>");
+
+  // see api.jquery.com/category/ajax/ -- this gives a pop up with Sign Up button?
+  // $('#new_user').prepend("<%= escape_javascript @user.errors.to_yaml.to_s %>")
+
+  // alert("Error occurred");
+
+  // This works
+  // $('body').prepend("<%=j render(partial: 'error', locals: { message: @user.errors.full_messages.to_sentence }) %>");
+
+
+  // $('.error-message').show().html()
+  // $('#new_user').prepend("<%= escape_javascript render partial: 'error' %>");
+  // $('div.container h1').prepend("<%= escape_javascript render partial: 'error', locals => { objekt => 'hi'} %>");
+  // $('div.container h1').prepend("<%= escape_javascript("test") %>");
+<% end %>
