@@ -7,6 +7,9 @@
 
 <%= form_tag buy_photo_path do %>
 <h2>Purchase a Print</h2>
+<div>
+  <%= select("price", "selected_id", PhotoPrices.all) %>
+</div>
 <div>Size: 10x10</div>
 <!-- Rails provides a helper (number_to_currency) to output currency correctly (instead of in cents ) -->
 <div>Price: <%= number_to_currency(Photo::PRICE / 100) %></div>
@@ -20,23 +23,21 @@
           data-amount="<%= Photo::PRICE %>"></script>
 
 <% end %>
-<p> Photo comments: <% @photo.comments.each do |f| %>
-    <%= f.body %><br />
-<% end %>
 
+<p> Photo comments: <% @photo.comments.each do |f| %>
+  <%= f.body %><br />
+<% end %>
 </p>
+
 <p> Photo description: <%= @photo.description %></p>
 <p> Uploaded by <b><%= @photo.user.username %></b> <%= time_ago_in_words (@photo.created_at) %> ago.</p>
 
 <p>
 <% if @current_user %>
   <h2>Add a Comment to this Photo</h2>
-      <%= form_for [@photo, Comment.new] do |f| %>
-
-
+    <%= form_for [@photo, Comment.new] do |f| %>
       <%= f.text_area :body %>
       <%= f.submit "Post Comment" %>
-
     <% end %>
 <% end %>
 
