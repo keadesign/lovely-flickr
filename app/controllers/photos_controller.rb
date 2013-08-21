@@ -2,9 +2,12 @@ class PhotosController < ApplicationController
   before_action :require_current_user, except: [:show, :index, :search]
   before_action :set_current_user, only: [:show]
 
+  respond_to :html, :json, :xml, except: [:new]
+
   def index
     # arel command - see query docs for 'arel'
     @photos = Photo.limit(50)
+    respond_with @photos
   end
 
   def new
@@ -20,13 +23,13 @@ class PhotosController < ApplicationController
         render action: :new
       end
 
-      @comment = Comment.new(comment_params)
-      @comment.commentable = Photo.find(params[:photo_path])
+      # @comment = Comment.new(comment_params)
+      # @comment.commentable = Photo.find(params[:photo_path])
       # should this be to photo_id above?
-      @comment.user = @current_user
-      @comment.save
+      # @comment.user = @current_user
+      # @comment.save
 
-      redirect_to @comment.commentable
+      # redirect_to @comment.commentable
   end
 
   def buy
@@ -55,6 +58,17 @@ class PhotosController < ApplicationController
 
   def search
     @results = Photo.search_for params[:query]
+    respond_with @results
+  end
+
+  def destroy
+    @photo = Photo.find(params[:id])
+    @photo.destroy
+
+    respond_to do |format|
+      format.html { redirect_to photos_path }
+      format.json { redirect_with @photo }
+    end
   end
 
   private

@@ -15,7 +15,7 @@ Flickr::Application.routes.draw do
       post :buy
     end
     collection do
-      post "search", to: "photos#search"
+      get "search", to: "photos#search"
     end
   end
 

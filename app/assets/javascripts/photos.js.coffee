@@ -39,7 +39,8 @@ $(document).ready ->
       left: (windowWidth - newWidth) / 2
       top: (windowHeight - newHeight) /2
 
-
+  $('#price_selected_id').change (evt)->
+    document.querySelector("#price").textContent = evt.target.selectedOptions[0].value
 
 # below is the same thing as the coffeescript above but in JavaScript
 # $('.photo').on('click', function() {

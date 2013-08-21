@@ -1,16 +1,17 @@
 <header class="navbar navbar-fixed-top navbar-inverse">
+  <!-- take navbar-fixed-top out for autocomplete dropdown to work -->
     <div class="navbar-inner">
       <div class="container">
-        <%= link_to "Lovely Flickr", '#', id: "logo" %>
+        <%= link_to "Lovely Flickr", root_path, id: "logo" %>
         <nav>
           <ul class="nav pull-right">
           <li><%= link_to "Photo List Blah", photos_path %></li>
           <li><%= link_to "New? Sign Up!", new_user_path %></li>
           <li><%= link_to "Sign In", new_session_path %></li>
           <li>
-            <%= form_tag(search_photos_path) do -%>
-            <%= search_field_tag :query -%>
-            <%= submit_tag "Search" %>
+            <%= form_tag(search_photos_path, method: :get) do -%>
+              <%= search_field_tag :query -%>
+              <%= submit_tag "Search" %>
             <% end %>
           </li>
         </ul>
